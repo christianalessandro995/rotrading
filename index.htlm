@@ -247,3 +247,51 @@
 
 </body>
 </html>
+  .search-cart {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+  }
+
+  #search-input {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #374151;
+    background: #1f2937;
+    color: white;
+    outline: none;
+  }
+
+  #cart-btn {
+    background: #4f8cff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">RoTrading <span>🚀</span></div>
+    
+    <nav class="nav">
+      <a href="#inicio">Inicio</a>
+      <a href="#catalogo">Catálogo</a>
+      <a href="#destacados">Destacados</a>
+    </nav>
+
+    <div class="search-cart">
+      <input type="text" placeholder="Buscar productos..." id="search-input">
+      <button id="cart-btn">🛒 Carrito <span id="cart-count">0</span></button>
+    </div>
+  </header>
+
+</body>
+</html>
+
+
+
