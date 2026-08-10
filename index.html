@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoTrading</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #080b12;
+      color: white;
+    }
+
+    header {
+      background: #101622;
+      border-bottom: 1px solid #263044;
+      padding: 12px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .navbar {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .logo img {
+      width: 140px;
+      display: block;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #4f8cff;
+    }
+
+    .account-btn {
+      background: #4f8cff;
+      color: white;
+      border: none;
+      padding: 11px 17px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 75px 20px;
+      background:
+        radial-gradient(circle at top, #172554, transparent 55%),
+        #080b12;
+    }
+
+    .hero h1 {
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+
+    .hero h1 span {
+      color: #4f8cff;
+    }
+
+    .hero p {
+      color: #94a3b8;
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .search {
+      width: 90%;
+      max-width: 600px;
+      padding: 15px;
+      border-radius: 12px;
+      border: 1px solid #263044;
+      background: #111827;
+      color: white;
+      outline: none;
+    }
+
+    .section {
+      max-width: 1200px;
+      margin: auto;
+      padding: 50px 20px;
+    }
+
+    .section h2 {
+      margin-bottom: 25px;
+    }
+
+    .games,
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 20px;
+    }
+
+    .game,
+    .product {
+      background: #111827;
+      border: 1px solid #263044;
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .game {
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .game:hover,
+    .product:hover {
+      border-color: #4f8cff;
+      transform: translateY(-3px);
+    }
+
+    .game-icon,
+    .product-image {
+      text-align: center;
+      font-size: 55px;
+      margin-bottom: 15px;
+    }
+
+    .product-image {
+      height: 150px;
+      background: #1b2535;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product p {
+      color: #94a3b8;
+      margin: 8px 0;
+    }
+
+    .price {
+      color: #4f8cff;
+      font-size: 21px;
+      font-weight: bold;
+      margin: 15px 0;
+    }
+
+    .buy {
+      width: 100%;
+      border: none;
+      background: #4f8cff;
+      color: white;
+      padding: 12px;
+      border-radius: 9px;
+      font-weight: bold;
+    }
+
+    .account-panel {
+      display: none;
+      max-width: 450px;
+      margin: 40px auto;
+      background: #111827;
+      border: 1px solid #263044;
+      border-radius: 18px;
+      padding: 25px;
+    }
+
+    .account-panel.active {
+      display: block;
+    }
+
+    .account-panel h2 {
+      margin-bottom: 20px;
+    }
+
+    .account-panel input {
+      width: 100%;
+      padding: 13px;
+      margin-bottom: 12px;
+      background: #0b111d;
+      border: 1px solid #263044;
+      color: white;
+      border-radius: 9px;
+      outline: none;
+    }
+
+    .primary {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 9px;
+      background: #4f8cff;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+
+    .secondary {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #334155;
+      border-radius: 9px;
+      background: transparent;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .message {
+      margin-top: 15px;
+      color: #94a3b8;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      padding: 35px 20px;
+      border-top: 1px solid #202938;
+      color: #64748b;
+    }
+
+    @media (max-width: 700px) {
+      .navbar {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      nav {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .hero h1 {
+        font-size: 38px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="navbar">
+
+    <a href="#" class="logo">
+      <img
+        src="B087832E-3651-4260-B773-0365DA198F95.png"
+        alt="RoTrading"
+      >
+    </a>
+
+    <nav>
+      <a href="#inicio">Inicio</a>
+      <a href="#juegos">Juegos</a>
+      <a href="#marketplace">Marketplace</a>
+      <a href="#cuenta">Mi cuenta</a>
+    </nav>
+
+    <button class="account-btn" onclick="mostrarCuenta()">
+      Mi cuenta
+    </button>
+
+  </div>
+</header>
+
+
+<section class="hero" id="inicio">
+
+  <h1>Bienvenido a <span>RoTrading</span></h1>
+
+  <p>
+    Marketplace para descubrir y organizar tus objetos favoritos.
+  </p>
+
+  <input
+    class="search"
+    id="search"
+    type="text"
+    placeholder="🔎 Buscar mascotas, objetos o juegos..."
+    oninput="buscar()"
+  >
+
+</section>
+
+
+<section class="section" id="juegos">
+
+  <h2>🎮 Explora juegos</h2>
+
+  <div class="games">
+
+    <div class="game">
+      <div class="game-icon">🐾</div>
+      <h3>Adopt Me!</h3>
+      <p>Mascotas y objetos</p>
+    </div>
+
+    <div class="game">
+      <div class="game-icon">🧠</div>
+      <h3>Brainrot</h3>
+      <p>Objetos y coleccionables</p>
+    </div>
+
+    <div class="game">
+      <div class="game-icon">🎮</div>
+      <h3>Próximamente</h3>
+      <p>Más juegos</p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="section" id="marketplace">
+
+  <h2>🔥 Marketplace</h2>
+
+  <div class="products" id="products">
+
+    <div class="product" data-name="Mascota Adopt Me">
+      <div class="product-image">🐶</div>
+      <h3>Mascota destacada</h3>
+      <p>Adopt Me!</p>
+      <div class="price">$50 MXN</div>
+      <button class="buy" onclick="comprar('Mascota destacada')">
+        🛒 Comprar
+      </button>
+    </div>
+
+    <div class="product" data-name="Brainrot">
+      <div class="product-image">🧠</div>
+      <h3>Brainrot destacado</h3>
+      <p>Brainrot</p>
+      <div class="price">$50 MXN</div>
+      <button class="buy" onclick="comprar('Brainrot destacado')">
+        🛒 Comprar
+      </button>
+    </div>
+
+    <div class="product" data-name="Objeto especial">
+      <div class="product-image">⭐</div>
+      <h3>Objeto especial</h3>
+      <p>Próximamente</p>
+      <div class="price">$100 MXN</div>
+      <button class="buy" onclick="comprar('Objeto especial')">
+        🛒 Comprar
+      </button>
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="account-panel" id="cuenta">
+
+  <h2>👤 Crear cuenta</h2>
+
+  <input
+    id="username"
+    type="text"
+    placeholder="Usuario de RoTrading"
+  >
+
+  <input
+    id="email"
+    type="email"
+    placeholder="Correo electrónico"
+  >
+
+  <input
+    id="password"
+    type="password"
+    placeholder="Contraseña de RoTrading"
+  >
+
+  <input
+    id="roblox"
+    type="text"
+    placeholder="Usuario de Roblox"
+  >
+
+  <button class="primary" onclick="crearCuenta()">
+    Crear cuenta
+  </button>
+
+  <button class="secondary" onclick="iniciarSesion()">
+    Ya tengo una cuenta
+  </button>
+
+  <div class="message" id="message"></div>
+
+</section>
+
+
+<footer>
+  © 2026 RoTrading
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+  /* =========================================
+     SUPABASE
+     ========================================= */
+
+  const SUPABASE_URL =
+    "https://zpbiaanblosjujatwolb.supabase.co";
+
+  const SUPABASE_KEY =
+    "PEGA_AQUI_TU_PUBLISHABLE_KEY";
+
+  const supabaseClient =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+
+  /* =========================================
+     MOSTRAR CUENTA
+     ========================================= */
+
+  function mostrarCuenta() {
+
+    const cuenta =
+      document.getElementById("cuenta");
+
+    cuenta.classList.add("active");
+
+    cuenta.scrollIntoView({
+      behavior: "smooth"
+    });
+
+  }
+
+
+  /* =========================================
+     CREAR CUENTA
+     ========================================= */
+
+  async function crearCuenta() {
+
+    const username =
+      document.getElementById("username").value.trim();
+
+    const email =
+      document.getElementById("email").value.trim();
+
+    const password =
+      document.getElementById("password").value;
+
+    const roblox =
+      document.getElementById("roblox").value.trim();
+
+    const message =
+      document.getElementById("message");
+
+
+    if (!username || !email || !password || !roblox) {
+
+      message.innerText =
+        "⚠️ Completa todos los campos.";
+
+      return;
+    }
+
+
+    if (password.length < 8) {
+
+      message.innerText =
+        "⚠️ La contraseña debe tener al menos 8 caracteres.";
+
+      return;
+    }
+
+
+    message.innerText =
+      "⏳ Creando tu cuenta...";
+
+
+    const { data, error } =
+      await supabaseClient.auth.signUp({
+
+        email: email,
+
+        password: password,
+
+        options: {
+          data: {
+            username: username,
+            roblox_username: roblox
+          }
+        }
+
+      });
+
+
+    if (error) {
+
+      message.innerText =
+        "❌ " + error.message;
+
+      return;
+    }
+
+
+    message.innerText =
+      "✅ Cuenta creada. Revisa tu correo para confirmar tu cuenta.";
+
+  }
+
+
+  /* =========================================
+     INICIAR SESIÓN
+     ========================================= */
+
+  async function iniciarSesion() {
+
+    const email =
+      document.getElementById("email").value.trim();
+
+    const password =
+      document.getElementById("password").value;
+
+    const message =
+      document.getElementById("message");
+
+
+    if (!email || !password) {
+
+      message.innerText =
+        "⚠️ Escribe tu correo y contraseña.";
+
+      return;
+    }
+
+
+    message.innerText =
+      "⏳ Iniciando sesión...";
+
+
+    const { error } =
+      await supabaseClient.auth.signInWithPassword({
+
+        email: email,
+
+        password: password
+
+      });
+
+
+    if (error) {
+
+      message.innerText =
+        "❌ " + error.message;
+
+      return;
+    }
+
+
+    message.innerText =
+      "✅ Has iniciado sesión correctamente.";
+
+  }
+
+
+  /* =========================================
+     BUSCADOR
+     ========================================= */
+
+  function buscar() {
+
+    const texto =
+      document
+      .getElementById("search")
+      .value
+      .toLowerCase();
+
+
+    const productos =
+      document.querySelectorAll(".product");
+
+
+    productos.forEach(function(producto) {
+
+      const nombre =
+        producto
+        .getAttribute("data-name")
+        .toLowerCase();
+
+
+      producto.style.display =
+        nombre.includes(texto)
+          ? "block"
+          : "none";
+
+    });
+
+  }
+
+
+  /* =========================================
+     COMPRAR
+     ========================================= */
+
+  function comprar(nombre) {
+
+    alert(
+      "🛒 " +
+      nombre +
+      " será añadido al carrito próximamente."
+    );
+
+  }
+
+</script>
+
+</body>
+</html>
